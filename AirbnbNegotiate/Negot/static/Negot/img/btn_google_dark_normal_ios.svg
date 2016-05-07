@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.4, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="46px" height="46px"
+	 viewBox="0 0 46 46" enable-background="new 0 0 46 46" xml:space="preserve">
+<title>btn_google_dark_normal_ios</title>
+<desc>Created with Sketch.</desc>
+<g id="logo_googleg_48dp" transform="translate(15.000000, 15.000000)" sketch:type="MSLayerGroup">
+	<path id="Shape" sketch:type="MSShapeGroup" fill="#4285F4" d="M27.201,8.455c0-1.418-0.13-2.782-0.364-4.091H8V12.1h10.764
+		c-0.464,2.5-1.873,4.62-3.99,6.037v5.018h6.465C25.019,19.673,27.201,14.545,27.201,8.455L27.201,8.455z"/>
+	<path id="Shape_1_" sketch:type="MSShapeGroup" fill="#34A853" d="M8,28c5.399,0,9.926-1.79,13.238-4.846l-6.465-5.018
+		c-1.791,1.2-4.082,1.907-6.773,1.907c-5.209,0-9.618-3.516-11.191-8.244h-6.682v5.183C-6.582,23.519,0.182,28,8,28L8,28z"/>
+	<path id="Shape_2_" sketch:type="MSShapeGroup" fill="#FBBC05" d="M-3.191,11.8c-0.399-1.2-0.627-2.48-0.627-3.8
+		c0-1.318,0.228-2.6,0.627-3.8v-5.183h-6.682C-11.228,1.719-12,4.773-12,8c0,3.227,0.772,6.28,2.127,8.982L-3.191,11.8L-3.191,11.8z
+		"/>
+	<path id="Shape_3_" sketch:type="MSShapeGroup" fill="#EA4335" d="M8-4.045c2.937,0,5.573,1.009,7.646,2.991l5.735-5.736
+		C17.918-10.019,13.391-12,8-12C0.182-12-6.582-7.519-9.873-0.982L-3.191,4.2C-1.618-0.527,2.791-4.045,8-4.045L8-4.045z"/>
+	<path id="Shape_4_" sketch:type="MSShapeGroup" fill="none" d="M-12-12h40v40h-40V-12z"/>
+</g>
+</svg>

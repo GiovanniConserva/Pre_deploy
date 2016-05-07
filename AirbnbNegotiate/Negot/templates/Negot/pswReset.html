@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Negot.io | About</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/css/bootstrap-slider.min.css">
+    <link rel="stylesheet" href="/static/Negot/css/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,600,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+   
+    <!-- MODAL AUTH -->
+    <div class="modal fade" id="auth" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-firstblock">
+                        <h4 class="modal-copy">Login with:</h4>
+                        <button type="submit" class="btn btn-default btn-success btn-block search-btn btn-google"><img src="/static/Negot/img/btn_google_dark_normal_ios.svg">Sign in with Google</button>
+                    </div>
+                    <div class="modal-secondblock">
+                        <h4 class="modal-copy"><span class="or">or</span></h4>
+                        <h4 class="modal-copy">Use or Negot.io account:</h4>
+                        <form role="form" action="">
+                            <div class="form-group">
+                                <input type="text" name="username" class="form-control" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="psw" class="form-control" placeholder="Password">
+                            </div>
+                            <div class="form-group signup-psw">
+                                <input type="password" name="pswCheck" class="form-control" placeholder="Retype Password">
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox" value="" checked><span class="remember-me">Remember me</span></label>
+                            </div>
+                            <button type="submit" value="submit" class="btn btn-default btn-success btn-block search-btn login-btn">Login</button>
+                            <button type="submit" value="submit" class="btn btn-default btn-success btn-block search-btn signup-btn">Sign Up</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <p class="remember-me"><span class="member">Not a member?</span> <span class="signup">Sign Up</span></p>
+                    <p class="remember-me">Forgot <a href="">Password?</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- NAVBAR -->
+    <nav class="navbar" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#Menu">
+                    <i class="material-icons menu-btn">menu</i>
+                </button>
+                <a class="navbar-brand" href="{% url 'index'%}">Negot.io</a>
+            </div>
+            <div class="collapse navbar-collapse" id="Menu">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a class="menu-link live" href="{% url 'about'%}">About</a></li>
+                    <li><a class="navbar-signin menu-link" data-toggle="modal" href="#auth">Sign in</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- CONTENT -->
+    <main class="about-content" role="main">
+        <div class="container">
+            <h1>Password Reset</h1>
+        </div>
+    </main>
+    
+    <!-- FOOTER -->
+    <footer class="footer-fixed">
+        <div class="container">
+            <div class="row">
+                
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/bootstrap-slider.min.js"></script>
+    <script src="/static/Negot/js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<link href='https://fonts.googleapis.com/css?family=Raleway:400,600,800' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Roboto:400' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+<div class="filters-map hidden-xs hidden-sm">
+    <script src='https://maps.googleapis.com/maps/api/js?v=3.exp'></script>
+    <div style='overflow:hidden;height:100%;width:100%;'>
+        <div id='gmap_canvas' style='height:100%;width:100%;'></div>
+        <div><small><a href="http://www.proxysitereviews.com/">proxies</a></small></div>
+        <style>#gmap_canvas img{max-width:none!important;background:none!important}</style>
+    </div>
+
+    <script type='text/javascript'>
+        var markers = [
+            {% for result in results|slice:":4" %}
+            ['{{ result.0.name }}',
+            {{result.0.latitude}},
+            {{ result.0.longitude }}],
+            {% endfor %}
+        ]
+        
+          function init_map(){
+            var myOptions = {
+                zoom:11,
+                center:new google.maps.LatLng(40.71278370000001,-74.00594130000003),
+                mapTypeId: google.maps.MapTypeId.ROADMAP};
+            var map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);
+            var infowindow = new google.maps.InfoWindow(), marker, i;
+            for (i = 0; i < markers.length; i++) { 
+                console.log(markers[i]);
+                marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(markers[i][1], markers[i][2]),
+                    map: map
+                });
+                google.maps.event.addListener(marker, 'click', (function(marker, i){
+                    return function() {
+                        infowindow.setContent(markers[i][0]);
+                        infowindow.open(map, marker);
+                    }
+                })(marker, i));
+                infowindow.open(map,marker);
+                }   
+            }
+            google.maps.event.addDomListener(window, 'load', init_map);
+            init_map();
+                    
+
+    </script>
+</div>

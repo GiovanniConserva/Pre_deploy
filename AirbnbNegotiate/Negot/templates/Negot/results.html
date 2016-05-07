@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Negot.io | Results</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/css/bootstrap-slider.min.css">
+    <link rel="stylesheet" href="/static/Negot/css/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,600,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+   
+    <!-- MODAL AUTH -->
+    <div class="modal fade" id="auth" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-firstblock">
+                        <h4 class="modal-copy">Login with:</h4>
+                        <button type="submit" class="btn btn-default btn-success btn-block search-btn btn-google"><img src="/static/Negot/img/btn_google_dark_normal_ios.svg">Sign in with Google</button>
+                    </div>
+                    <div class="modal-secondblock">
+                        <h4 class="modal-copy"><span class="or">or</span></h4>
+                        <h4 class="modal-copy">Use or Negot.io account:</h4>
+                        {% if errors %}
+                        <p>{{ errors }}</p>
+                        {% endif %}
+                        <form role="form" action="{% url 'auth_view' %}" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input id="username" type="text" name="username" class="form-control" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <input id="password" type="password" name="password" class="form-control" placeholder="Password">
+                            </div>
+                            <div class="form-group signup-psw">
+                                <input type="password" name="pswCheck" class="form-control" placeholder="Retype Password">
+                            </div>
+                            <div class="checkbox">
+                                <label><input id='rememberme' type="checkbox" value="" checked><span class="remember-me">Remember me</span></label>
+                            </div>
+                            <button id="login" type="submit" value="submit" class="btn btn-default btn-success btn-block search-btn login-btn">Login</button>
+                            <button id="signup" type="submit" value="submit" class="btn btn-default btn-success btn-block search-btn signup-btn">Sign Up</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <p class="remember-me"><span class="member">Not a member?</span> <span class="signup">Sign Up</span></p>
+                    <p class="remember-me">Forgot <a href="">Password?</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- NAVBAR -->
+    <nav class="navbar" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#Menu">
+                    <i class="material-icons menu-btn">menu</i>
+                </button>
+                <a class="navbar-brand" href="{% url 'index'%}">Negot.io</a>
+            </div>
+            <div class="collapse navbar-collapse" id="Menu">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a class="menu-link" href="about">About</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a class="menu-link" href="">Hello, {{ user.username }}!</a></li>
+                    <li><a class="menu-link" data-toggle="modal" href= "{% url 'logout' %}">logout </a></li>
+                    {% else %}
+                    <li><a class="navbar-signin menu-link" data-toggle="modal" href="#auth">Sign in</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- CONTENT -->
+    <main class="container results-content" role="main">
+        <div class="filters-button">
+            <button type="button" class="filters-btn search-btn visible-xs-block" data-toggle="collapse" data-target="#filters">
+                <span class="filters-btn--text">Filters</span>
+            </button>
+        </div>
+                   
+               
+            
+
+        <div class="filters hidden-xs" id="filters">
+            <div class="g_map" id ="g_map">
+            {% include 'Negot/map.html' with results=results %}
+            </div>
+            
+            <div class="filters-copy">
+                <h2 class="filters-title">Filters</h2>
+                <div class="filters-section filters-range">
+                    <div class="row filters-row">
+                        <div class="col-xs-12 filters-label"><p>Price range</p></div>
+                        <div class="col-xs-12">
+                            <input type="text" class="price-range" value="" data-slider-min="10" data-slider-max="1000" data-slider-step="1" data-slider-value="[10,1000]" data-slider-tooltip="hide"/>
+                        </div>
+                        <div class="filters-low--range col-xs-6">
+                            <p>$<span class="low-value">10</span></p>
+                        </div>
+                        <div class="filters-high--range col-xs-6">
+                            <p>$<span class="high-value">1000</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="filters-section filters-roomtype">
+                    <div class="row filters-row">
+                        <div class="col-sm-12 filters-label"><p>Room Type</p></div>
+                        <div class="col-sm-11">  
+                            <div class="filters-radio col-sm-4">
+                                <input type="checkbox" value="Entire home/apt" name="room-type">
+                                <span>Entire home/apt</span>
+                            </div>
+                            <div class="filters-radio col-sm-4">
+                                <input type="checkbox" value="Private room" name="room-type">
+                                <span>Private room</span>
+                            </div>
+                            <div class="filters-radio col-sm-4">
+                                <input type="checkbox" value="Shared room" name="room-type">
+                                <span>Shared room</span>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+                <div class="filters-section filters-location">
+                    <div class="row filters-row">
+                        <div class="col-sm-12 filters-label"><p>Neighborhoods</p></div>
+                        <div class="col-sm-11">   
+                            {% for nbh in neighbourhoods|slice:"3" %}
+                            <div class="filters-radio col-sm-4">
+                                <input type="checkbox" value="{{nbh}}" name="neighborhood">
+                                <span>{{nbh}}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-sm-1 filters-dropdown hidden-xs"><p><i class="material-icons">arrow_drop_down</i></p></div>
+                        <div class="col-sm-1 filters-dropdown hidden-sm hidden-md hidden-lg"><p class="other">Other</p></div>
+                    </div>
+                </div>
+                <div class="filters-section filters-location filters-more">
+                    <div class="row filters-row">
+                        <div class="col-sm-11">   
+                            {% for nbh in neighbourhoods %} 
+                            {% if forloop.counter  > 3 %}
+                            <div class="filters-radio col-sm-4">
+                                <input type="checkbox" value= "{{nbh}}" name="neighborhood">
+                                <span>{{nbh}}</span>
+                            </div>
+                            {% endif %}
+                            {% endfor %}  
+                            
+                            
+                            
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="listings">
+            <div class="listings-header">
+                <h1 class="listings-header--location">New York NY, United States</h1>
+                <div class="listings-header--copy">
+                    <p class="listings-header--dates"><span class="listings-header--checkin">{{ checkin_date }}</span> - <span class="listings-header--checkout">{{ checkout_date }}</span></p>
+                    <p class="listings-header--guests">Guests</p>
+                </div>
+                <div class="listings-header--btn">
+                    <a class="btn btn-default search-btn" href="{% url 'index'%}" style="color:white;padding-top:10px;text-align:center;">New Search</a>                    
+                </div>
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="listings-list" id= "listings-list">
+                {% include 'Negot/result_list.html' with results=results %}
+            </div>
+
+        </div>
+    </main>
+    
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/bootstrap-slider.min.js"></script>
+    <script src="/static/Negot/js/main.js"></script>
+</body>
+
+</html>

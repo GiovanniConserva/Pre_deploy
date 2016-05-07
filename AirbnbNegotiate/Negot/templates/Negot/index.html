@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Negot.io | Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/css/bootstrap-slider.min.css">
+    <link rel="stylesheet" href="/static/Negot/css/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,600,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    {% if errors %}
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $("#auth").modal('show');
+    });
+    </script>
+    {% endif %}
+</head>
+
+<body>
+
+    <!-- MODAL AUTH -->
+    <div class="modal fade" id="auth" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-firstblock">
+                        <h4 class="modal-copy">Login with:</h4>
+                        <button type="submit" class="btn btn-default btn-success btn-block search-btn btn-google"><img src="/static/Negot/img/btn_google_dark_normal_ios.svg">Sign in with Google</button>
+                    </div>
+                    <div class="modal-secondblock">
+                        <h4 class="modal-copy"><span class="or">or</span></h4>
+                        <h4 class="modal-copy">Use or Negot.io account:</h4>
+                        {% if errors %}
+                        <p>{{ errors }}</p>
+                        {% endif %}
+                        <form role="form" action="{% url 'auth_view' %}" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input id="email" type="text" name="email" class="form-control" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <input id="password" type="password" name="password" class="form-control" placeholder="Password">
+                            </div>
+                            <div class="form-group signup-psw">
+                                <input type="password" name="pswCheck" class="form-control" placeholder="Retype Password">
+                            </div>
+                            <div class="checkbox">
+                                <label><input id='rememberme' type="checkbox" value="" checked><span class="remember-me">Remember me</span></label>
+                            </div>
+                            <button id="login" type="submit" value="submit" class="btn btn-default btn-success btn-block search-btn login-btn">Login</button>
+                            <button id="signup" type="submit" value="submit" class="btn btn-default btn-success btn-block search-btn signup-btn">Sign Up</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <p class="remember-me"><span class="member">Not a member?</span> <span class="signup">Sign Up</span></p>
+                    <p class="remember-me">Forgot <a href="">Password?</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#Menu">
+                    <i class="material-icons menu-btn">menu</i>
+                </button>
+                <a class="navbar-brand" href="">Negot.io</a>
+            </div>
+            <div class="collapse navbar-collapse" id="Menu">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a class="menu-link" href="about">About</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a class="menu-link" href="">Hello, {{ user.username }}!</a></li>
+                    <li><a class="menu-link" data-toggle="modal" href= "{% url 'logout' %}">logout </a></li>
+                    {% else %}
+                    <li><a class="navbar-signin menu-link" data-toggle="modal" href="#auth">Sign in</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTENT -->
+    <main class="content" role="main">
+        <div class="hero-background">
+            <img class="hero-img" src="/static/Negot/img/skyline-buildings-new-york-skyscrapers.jpg" alt="New York Skyline">
+        </div>
+        <div class="container hero-search">
+            <form class="search-form" action="{% url 'search' %}" method="post" role="form" id="searchForm">
+                {% csrf_token %}
+                <div class="container search-form--box">
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <i class="material-icons search-icon">location_city</i>
+                            <input id="destination" type="text" class="form-control" name="destination" placeholder="New York NY, United States" readonly disabled data-toggle="tooltip" data-placement="top" title="Soon more cities will be available!" value="New York NY, United States">
+                        </div>
+                        <div class="col-sm-5 col-md-4 form-calendar">
+                            <div class="form-group form-calendar--left">
+                                <i class="material-icons search-icon">date_range</i>
+                                <input id="check-in" type="text" class="form-control check-in" name="check-in" placeholder="Check In">
+                            </div>
+                            <div class="form-group form-calendar--right">
+                                <input id="check-out" type="text" class="form-control check-out" name="check-out" placeholder="Check Out">
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-2 form-group">
+                            <i class="material-icons search-icon bed">hotel</i>
+                            <select class="form-control" form="searchForm">
+                                <option value="1">1 guest</option>
+                                <option value="2">2 guests</option>
+                                <option value="3">3 guests</option>
+                                <option value="4">4 guests</option>
+                                <option value="5">5 guests</option>
+                                <option value="6">6 guests</option>
+                                <option value="7">7 guests</option>
+                                <option value="8">8 guests</option>
+                                <option value="9">9 guests</option>
+                                <option value="10">10 guests</option>
+                                <option value="11">11 guests</option>
+                                <option value="12">12 guests</option>
+                                <option value="13">13 guests</option>
+                                <option value="14">14 guests</option>
+                                <option value="15">15 guests</option>
+                                <option value="16">16+ guests</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3 col-md-2 form-group">
+                            <!--<button type="submit" class="btn btn-default search-btn" onclick="document.location.href='results'">Search</button>-->
+                            <button type="submit" class="btn btn-default search-btn" value="submit" onclick="document.location.href='search/'">Search</button>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="container payoff">
+            <div class="row">
+                <div class="col-sm-offset-2 col-sm-8">
+                    <h1>Search for the <strong>best deals</strong> for your needs<br/> and save up to <span class="red">25%</span> off Airbnb’s listed prices.</h1>
+                </div>
+            </div>
+        </div>
+        <div class="container tutorial">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h2 class="tutorial-title">How it works</h2>
+                    <p class="tutorial-copy"><span class="tutorial-number">1</span><strong>Find</strong> the house the most suits you</p>
+                    <p class="tutorial-copy"><span class="tutorial-number">2</span><strong>Learn</strong> your strong points with the provided tips</p>
+                    <p class="tutorial-copy"><span class="tutorial-number">3</span><strong>Connect</strong> with the host!</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/bootstrap-slider.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="/static/Negot/js/main.js"></script>
+</body>
+
+</html>
